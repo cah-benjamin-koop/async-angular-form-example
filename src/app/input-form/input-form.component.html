@@ -6,6 +6,8 @@
     (ngSubmit)="submit()"
   >
     <h2 class="title">Threshold Settings</h2>
+
+
     <div class="toggle">
       <input
         id="enabled"
@@ -48,6 +50,8 @@
   </form>
   <h3>Debug display values</h3>
   <p>Form value: {{ form.value | json }}</p>
+  <p>Form validation items that fail (keys): {{ (form.controls.value.errors | keys ) || 'none'}}</p>
+  <p>Form validation items that fail (all data): {{ form.controls.value.errors | json }}</p>
   <p>Form status: {{ form.status }}</p>
 </ng-container>
 <ng-template #loading> <h1>Loading...</h1> </ng-template>
