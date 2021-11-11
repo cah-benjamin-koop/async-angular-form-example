@@ -1,0 +1,38 @@
+
+#threshold-settings {
+    font: Roboto;
+    margin: 2rem;
+    display: grid;
+    grid-column: repeat(3, 1fr);
+    grid-row: 3fr 1fr 1fr 3fr 1fr;
+    gap: 1rem;
+    grid-template-areas: 
+        "title title title"
+        "toggle toggle toggle"
+        "value value value"
+        "message message message"
+        "... ... save";
+
+
+    .title {
+        grid-area: title;
+    }
+    .toggle {
+        grid-area: toggle;
+    }
+    .threshold {
+        grid-area: value;
+    }
+    .message {
+        grid-area: message;
+        font-size: 1.5rem;
+        &.error {
+            color: red;
+        }
+    }
+    .save {
+        grid-area: save;
+    }
+}
+
+

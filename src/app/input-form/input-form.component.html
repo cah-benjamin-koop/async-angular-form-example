@@ -1,0 +1,43 @@
+<form
+  id="threshold-settings"
+  *ngIf="threshold$ | async as threshold; else loading"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
+  <h1 class="title">Threshold Settings</h1>
+  <div class="toggle">
+    <input
+      id="enabled"
+      [value]="true"
+      type="radio"
+      name="enabled"
+      formControlName="enabled"
+    />
+    <label class="radio-label">Enabled</label>
+    <input
+      id="disabled"
+      [value]="false"
+      type="radio"
+      name="enabled"
+      formControlName="enabled"
+    />
+    <label class="radio-label">Disabled</label>
+  </div>
+
+  <div class="threshold">
+
+    <label for="value">Value</label>
+    <input type="text" step="1" id="value" formControlName="value" />
+  </div>
+
+  <div
+    *ngIf="(form.controls.value.errors?.required && form.controls.value.touched) || threshold.message"
+    class="message"
+    [class.error]="form.controls.value.errors?.required"
+  >
+    {{ threshold.message || "*Required"}}
+  </div>
+
+  <button class="save" [disabled]="!form.valid">Save</button>
+</form>
+<ng-template #loading> Loading User... </ng-template>
