@@ -1,4 +1,4 @@
-import { ValidatorFn, Validators } from "@angular/forms";
+import { AbstractControl, ValidatorFn, Validators } from "@angular/forms";
 
 type RequiredIfValidator = (predicate: () => boolean, validator: ValidatorFn) => ValidatorFn;
 
@@ -8,6 +8,6 @@ export module CimValidators {
     return formControl => (formControl.parent && predicate() ?  validator(formControl) : null)
   }
 
-  export const CurrencyFormatted = Validators.pattern(/^\$?[0-9]+(\.[0-9][0-9])?$/);
+  export const CurrencyFormatted = Validators.pattern(/^\$?^\-?[0-9]+(\.[0-9][0-9])?$/);
 
 }

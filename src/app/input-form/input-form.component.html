@@ -28,20 +28,25 @@
     </div>
 
     <div class="threshold"
-      [class.valid]="form.get('value').valid &&
-        (form.get('value').dirty || form.get('value').touched)"
-      [class.invalid]="form.get('value').invalid &&
-        (form.get('value').dirty || form.get('value').touched)">
+      [class.valid]="form.get('threshold').valid &&
+        (form.get('threshold').dirty || form.get('threshold').touched)"
+      [class.invalid]="form.get('threshold').invalid &&
+        (form.get('threshold').dirty || form.get('threshold').touched)">
 
-      <label for="value">Threshold</label>
-      <input type="text" step="1" id="value" formControlName="value"
-      />
+      <label for="threshold">Threshold</label>
+      <input type="text" step="1" id="threshold" formControlName="threshold"/>
+      <ng-container *ngIf="form.controls.threshold.touched">
+        <span *ngIf="form.controls.threshold.errors?.pattern" class="error">should be formatted as USD #########.## </span>
+        <span *ngIf="form.controls.threshold.errors?.min" class="error">should be greater than 15 </span>
+        <span *ngIf="form.controls.threshold.errors?.minlength" class="error">should be no shorter than 2 digits </span>
+        <span *ngIf="form.controls.threshold.errors?.maxlength" class="error">should be no longer than 15 characters </span>
+        <span *ngIf="form.controls.threshold.errors?.required" class="error">required </span>
+      </ng-container>
     </div>
 
     <div
-      *ngIf="(form.controls.value.errors?.required && form.controls.value.touched) || threshold.message"
+      *ngIf="threshold.message"
       class="message"
-      [class.error]="form.controls.value.errors?.required"
     >
       {{ threshold.message || "*Required"}}
     </div>
@@ -50,8 +55,11 @@
   </form>
   <h3>Debug display values</h3>
   <p>Form value: {{ form.value | json }}</p>
-  <p>Form validation items that fail (keys): {{ (form.controls.value.errors | keys ) || 'none'}}</p>
-  <p>Form validation items that fail (all data): {{ form.controls.value.errors | json }}</p>
+  <p>Form validation items that fail (keys): {{ (form.controls.threshold.errors | keys ) || 'none'}}</p>
+  <p>Form validation items that fail (all data): {{ form.controls.threshold.errors | json }}</p>
   <p>Form status: {{ form.status }}</p>
+  <p>Form value 'threshold': touched: {{ form.controls.threshold.touched }} Prestine: {{ form.controls.threshold.pristine }}</p>
+
+
 </ng-container>
 <ng-template #loading> <h1>Loading...</h1> </ng-template>
