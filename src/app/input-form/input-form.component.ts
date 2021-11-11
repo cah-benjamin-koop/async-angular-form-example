@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Observable, Subscription, Subject } from 'rxjs';
 import { tap, map, takeUntil } from 'rxjs/operators';
 import { UserSettingsService } from '../user-settings/user-settings.service';
-import { Threshold } from '../user-settings/user';
+import { Threshold } from '../user-settings/Threshold';
 import { CimValidators } from '../utilities/CimValidators';
 
 @Component({
@@ -50,7 +50,7 @@ export class InputFormComponent implements OnInit, OnDestroy {
 
     // this code handles enabling or disabling the input field for the value based on another field
     this.form.get("enabled").valueChanges
-      //this is another way to kill observables when the page unloads
+      //this is another way to kill observables when the page unloads without having to save each to their own variable
       .pipe(takeUntil(this.destroy$))
       .subscribe(enabled => enabled
         ? this.form.get('value').enable()
@@ -62,10 +62,10 @@ export class InputFormComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       this.userSettings.setThreshold({
         enabled: this.form.value.enabled,
-        value: +((this.form.value.value ?? '0').replace("$", "")),
+        value: +(this.form.value?.value?.replace("$", "") ?? 0),
       });
     } else {
-      console.warn("not valid! nothing really to do here, we wont reach this code")
+      console.warn("not valid! we could also display a message on page")
     }
   }
 

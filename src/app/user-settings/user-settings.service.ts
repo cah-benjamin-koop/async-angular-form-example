@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, tap } from 'rxjs/operators'
-import { Threshold } from './user';
+import { Threshold } from './Threshold';
 
 @Injectable({
   providedIn: 'root'

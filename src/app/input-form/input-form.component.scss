@@ -11,7 +11,7 @@
         "toggle ... ..."
         "value ... ..."
         "message message message"
-        "... ... save";
+        "disSave ... save";
 
 
     .title {
@@ -33,6 +33,9 @@
     }
     .save {
         grid-area: save;
+    }
+    .disSave {
+        grid-area: disSave;
     }
 
     .valid {
