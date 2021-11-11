@@ -1,43 +1,54 @@
-<form
-  id="threshold-settings"
-  *ngIf="threshold$ | async as threshold; else loading"
-  [formGroup]="form"
-  (ngSubmit)="submit()"
->
-  <h1 class="title">Threshold Settings</h1>
-  <div class="toggle">
-    <input
-      id="enabled"
-      [value]="true"
-      type="radio"
-      name="enabled"
-      formControlName="enabled"
-    />
-    <label class="radio-label">Enabled</label>
-    <input
-      id="disabled"
-      [value]="false"
-      type="radio"
-      name="enabled"
-      formControlName="enabled"
-    />
-    <label class="radio-label">Disabled</label>
-  </div>
-
-  <div class="threshold">
-
-    <label for="value">Value</label>
-    <input type="text" step="1" id="value" formControlName="value" />
-  </div>
-
-  <div
-    *ngIf="(form.controls.value.errors?.required && form.controls.value.touched) || threshold.message"
-    class="message"
-    [class.error]="form.controls.value.errors?.required"
+<ng-container *ngIf="threshold$ | async as threshold; else loading">
+  <form
+    id="threshold-settings"
+    *ngIf="!threshold.loading; else loading"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
   >
-    {{ threshold.message || "*Required"}}
-  </div>
+    <h2 class="title">Threshold Settings</h2>
+    <div class="toggle">
+      <input
+        id="enabled"
+        [value]="true"
+        type="radio"
+        name="enabled"
+        formControlName="enabled"
+      />
+      <label class="radio-label">Enabled</label>
+      <input
+        id="disabled"
+        [value]="false"
+        type="radio"
+        name="enabled"
+        formControlName="enabled"
+      />
+      <label class="radio-label">Disabled</label>
+    </div>
 
-  <button class="save" [disabled]="!form.valid">Save</button>
-</form>
-<ng-template #loading> Loading User... </ng-template>
+    <div class="threshold"
+      [class.valid]="form.get('value').valid &&
+        (form.get('value').dirty || form.get('value').touched)"
+      [class.invalid]="form.get('value').invalid &&
+        (form.get('value').dirty || form.get('value').touched)">
+
+      <label for="value">Threshold</label>
+      <input type="text" step="1" id="value" formControlName="value"
+      />
+    </div>
+
+    <div
+      *ngIf="(form.controls.value.errors?.required && form.controls.value.touched) || threshold.message"
+      class="message"
+      [class.error]="form.controls.value.errors?.required"
+    >
+      {{ threshold.message || "*Required"}}
+    </div>
+
+    <button class="save" [disabled]="!form.valid">Save</button>
+  </form>
+  <h3>Debug display values</h3>
+  <p>Form value: {{ form.value | json }}</p>
+  <p>Form status: {{ form.status | json }}</p>
+  <p>Form Valid: {{ form.valid | json }}</p>
+</ng-container>
+<ng-template #loading> <h1>Loading...</h1> </ng-template>

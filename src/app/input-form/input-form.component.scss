@@ -6,16 +6,17 @@
     grid-column: repeat(3, 1fr);
     grid-row: 3fr 1fr 1fr 3fr 1fr;
     gap: 1rem;
-    grid-template-areas: 
+    grid-template-areas:
         "title title title"
-        "toggle toggle toggle"
-        "value value value"
+        "toggle ... ..."
+        "value ... ..."
         "message message message"
         "... ... save";
 
 
     .title {
         grid-area: title;
+        text-align: center;
     }
     .toggle {
         grid-area: toggle;
@@ -33,6 +34,20 @@
     .save {
         grid-area: save;
     }
-}
 
+    .valid {
+      color: green;
+    }
+
+    .invalid {
+      color: red;
+      border: .1285rem solid red;
+      border-radius: .5rem;
+      padding: 0 1rem;
+
+    }
+}
+h1 {
+  color: blue;
+}
 
